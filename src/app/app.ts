@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, computed, signal} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +8,18 @@ import { Component } from '@angular/core';
   standalone:true
 })
 export class App {
-  protected title = 'angular-project';
+
+  name = signal("PiKachu");
+  lives = signal(21);
+  size = computed(() => {
+    return this.lives() <= 15 ? "Petit" : this.lives() < 25 ? "Moyen" : "Grand"
+  })
+
+  incrementLive() {
+    this.lives.update(n => n + 1);
+  }
+
+  decrementLive() {
+    this.lives.update(n => n - 1);
+  }
 }

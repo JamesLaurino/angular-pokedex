@@ -1,1 +1,12 @@
-<div>Hello world</div>
+<h1>Pokédex</h1>
+<div class="container d-flex justify-content-center">
+  <div class="d-flex flex-column">
+    <p>Pokémon {{name()}}</p>
+    <p>Point de vie : {{lives()}}</p>
+    <p>Taille : {{size()}}</p>
+    <div>
+      <button (click)="incrementLive()" >+</button>
+      <button (click)="decrementLive()" >-</button>
+    </div>
+  </div>
+</div>
