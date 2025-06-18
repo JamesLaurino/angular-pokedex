@@ -1,13 +1,22 @@
 <h1>Pokédex</h1>
-<div class="container d-flex justify-content-center">
-  <div class="d-flex flex-column">
-    <p>Pokémon {{name()}}</p>
-    <img [src]="imageSrc()" alt="image" />
-    <p>Point de vie : {{lives()}}</p>
-    <p>Taille : {{size()}}</p>
-    <div>
-      <button [disabled]="lives() >=30" (click)="incrementLive()" >+</button>
-      <button [disabled]="lives() <= 5" (click)="decrementLive()" >-</button>
-    </div>
+<div class="container">
+  <div class="row">
+    @for (pokemon of pokemonList(); track pokemon.id)
+    {
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <p> <strong> {{pokemon.name}} </strong> </p>
+        <img [src]="pokemon.picture" [alt]="pokemon.name">
+        <p>Point de vie {{pokemon.life}}</p>
+        <p>Taille {{size(pokemon)}}</p>
+        <div class="container d-flex justify-content-center gap-2">
+          <div>
+            <button class="btn btn-success" (click)="incrementLive(pokemon)" [disabled]="pokemon.life >= 30" >+</button>
+          </div>
+          <div >
+            <button class="btn btn-dark" (click)="decrementLive(pokemon)" [disabled]="pokemon.life <= 5" >-</button>
+          </div>
+        </div>
+      </div>
+    }
   </div>
 </div>
