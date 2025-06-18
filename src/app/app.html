@@ -2,11 +2,12 @@
 <div class="container d-flex justify-content-center">
   <div class="d-flex flex-column">
     <p>Pokémon {{name()}}</p>
+    <img [src]="imageSrc()" alt="image" />
     <p>Point de vie : {{lives()}}</p>
     <p>Taille : {{size()}}</p>
     <div>
-      <button (click)="incrementLive()" >+</button>
-      <button (click)="decrementLive()" >-</button>
+      <button [disabled]="lives() >=30" (click)="incrementLive()" >+</button>
+      <button [disabled]="lives() <= 5" (click)="decrementLive()" >-</button>
     </div>
   </div>
 </div>
