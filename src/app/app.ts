@@ -1,4 +1,4 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, computed, inject, signal} from '@angular/core';
 import {Pokemon} from '../model/pokemon.model';
 import {PokemonBorderDirective} from '../share/pokemon-border-directive';
 import {ReversePipe} from '../share/reverse-pipe';
@@ -15,6 +15,13 @@ export class App {
 
   private pokemonService = inject(PokemonService);
   pokemonList = signal(this.pokemonService.getPokemon());
+  searchValue = signal("");
+
+  filteredPokemonList = computed(() =>
+    this.pokemonList().filter(pokemon =>
+      pokemon.name.toLowerCase().includes(this.searchValue().trim().toLowerCase())
+    )
+  );
 
   size(pokemon: Pokemon) {
     if(pokemon.life <= 10) {
