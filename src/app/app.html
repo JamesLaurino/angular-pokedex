@@ -8,8 +8,8 @@
       <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
         <div class="container d-flex justify-content-center flex-column">
           <span class="shadow p-3 h-75" appPokemonBorderDirective [pokemonType]="pokemon.types[0]" >
-             <p class="text-center"> <strong> {{pokemon.name}} </strong> </p>
-            <img class="mx-4" [src]="pokemon.picture" [alt]="pokemon.name" width="180px" height="180px">
+             <p class="text-center"> <strong> {{pokemon.name | reverse}} </strong> </p>
+            <img class="mx-5" [src]="pokemon.picture" [alt]="pokemon.name" width="150px" height="150px">
             <p>Point de vie {{pokemon.life}}</p>
             <p>Taille {{size(pokemon)}}</p>
             <div class="container d-flex justify-content-center gap-2">
