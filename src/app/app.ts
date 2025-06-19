@@ -1,43 +1,12 @@
-import {Component, computed, inject, signal} from '@angular/core';
-import {Pokemon} from '../model/pokemon.model';
-import {PokemonBorderDirective} from '../share/pokemon-border-directive';
-import {ReversePipe} from '../share/reverse-pipe';
-import {PokemonService} from '../service/pokemon-service';
+import {Component} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [PokemonBorderDirective, ReversePipe],
+  imports: [
+    RouterOutlet
+  ],
   templateUrl: './app.html',
-  styleUrl: './app.css',
-  standalone:true
+  styles: ``
 })
-export class App {
-
-  private pokemonService = inject(PokemonService);
-  pokemonList = signal(this.pokemonService.getPokemon());
-  searchValue = signal("");
-
-  filteredPokemonList = computed(() =>
-    this.pokemonList().filter(pokemon =>
-      pokemon.name.toLowerCase().includes(this.searchValue().trim().toLowerCase())
-    )
-  );
-
-  size(pokemon: Pokemon) {
-    if(pokemon.life <= 10) {
-      return 'small';
-    }
-    if(pokemon.life <= 20) {
-      return 'medium';
-    }
-    return 'big';
-  }
-
-  incrementLive(pokemon: Pokemon) {
-    pokemon.life++;
-  }
-
-  decrementLive(pokemon: Pokemon) {
-    pokemon.life--;
-  }
-}
+export class App {}

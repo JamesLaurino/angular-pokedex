@@ -1,0 +1,47 @@
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-4 offset-4">
+      <div class="card">
+        <form class="card-body">
+          <div class="form-group">
+            <label class="mb-2" for="searchField" >Rechercher un pokémon</label>
+            <input
+              id="searchField"
+              type="text"
+              class="form-control"
+              #searchField
+              [value]="searchValue()"
+              (input)="searchValue.set(searchField.value)"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    @for (pokemon of filteredPokemonList(); track pokemon.id)
+    {
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+        <div class="container d-flex justify-content-center flex-column">
+          <span class="shadow p-3 h-75" appPokemonBorderDirective [pokemonType]="pokemon.types[0]" >
+             <p class="text-center"> <strong> {{pokemon.name | reverse}} </strong> </p>
+            <img class="mx-5" [src]="pokemon.picture" [alt]="pokemon.name" width="150px" height="150px">
+            <p>Point de vie {{pokemon.life}}</p>
+            <p>Taille {{size(pokemon)}}</p>
+            <div class="container d-flex justify-content-center gap-2">
+              <div>
+                <button class="btn btn-dark" (click)="incrementLive(pokemon)" [disabled]="pokemon.life >= 30" >+</button>
+              </div>
+              <div >
+                <button class="btn btn-dark" (click)="decrementLive(pokemon)" [disabled]="pokemon.life <= 5" >-</button>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+    }
+  </div>
+</div>
