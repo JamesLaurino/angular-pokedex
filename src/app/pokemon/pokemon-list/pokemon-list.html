@@ -1,24 +1,4 @@
-<div class="container mb-5">
-  <div class="row">
-    <div class="col-4 offset-4">
-      <div class="card">
-        <form class="card-body">
-          <div class="form-group">
-            <label class="mb-2" for="searchField" >Rechercher un pokémon</label>
-            <input
-              id="searchField"
-              type="text"
-              class="form-control"
-              #searchField
-              [value]="searchValue()"
-              (input)="searchValue.set(searchField.value)"
-            />
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+<app-search-pokemon (dataEmitted)="pokemonSearch($event)" />
 
 <div class="container">
   <div class="row">

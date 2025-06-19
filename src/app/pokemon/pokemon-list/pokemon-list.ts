@@ -4,13 +4,15 @@ import {Pokemon} from '../../model/pokemon.model';
 import {PokemonBorderDirective} from '../../share/pokemon-border-directive';
 import {ReversePipe} from '../../share/reverse-pipe';
 import {RouterLink} from '@angular/router';
+import {SearchPokemon} from '../search-pokemon/search-pokemon';
 
 @Component({
   selector: 'app-pokemon-list',
   imports: [
     PokemonBorderDirective,
     ReversePipe,
-    RouterLink
+    RouterLink,
+    SearchPokemon
   ],
   templateUrl: './pokemon-list.html',
   styles: ``
@@ -26,6 +28,10 @@ export class PokemonList {
       pokemon.name.toLowerCase().includes(this.searchValue().trim().toLowerCase())
     )
   );
+
+  pokemonSearch(dataEmited: string) {
+    this.searchValue.set(dataEmited);
+  }
 
   size(pokemon: Pokemon) {
     if(pokemon.life <= 10) {
