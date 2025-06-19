@@ -1,20 +1,20 @@
-import {Component, signal} from '@angular/core';
-import {POKEMON_LIST} from '../data/pokemon-list';
+import {Component, inject, signal} from '@angular/core';
 import {Pokemon} from '../model/pokemon.model';
 import {PokemonBorderDirective} from '../share/pokemon-border-directive';
-import {DatePipe} from '@angular/common';
 import {ReversePipe} from '../share/reverse-pipe';
+import {PokemonService} from '../service/pokemon-service';
 
 @Component({
   selector: 'app-root',
-  imports: [PokemonBorderDirective, DatePipe, ReversePipe],
+  imports: [PokemonBorderDirective, ReversePipe],
   templateUrl: './app.html',
   styleUrl: './app.css',
   standalone:true
 })
 export class App {
 
-  pokemonList = signal(POKEMON_LIST);
+  private pokemonService = inject(PokemonService);
+  pokemonList = signal(this.pokemonService.getPokemon());
 
   size(pokemon: Pokemon) {
     if(pokemon.life <= 10) {
