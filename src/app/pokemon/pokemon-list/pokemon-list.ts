@@ -3,12 +3,14 @@ import {PokemonService} from '../../service/pokemon-service';
 import {Pokemon} from '../../model/pokemon.model';
 import {PokemonBorderDirective} from '../../share/pokemon-border-directive';
 import {ReversePipe} from '../../share/reverse-pipe';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-pokemon-list',
   imports: [
     PokemonBorderDirective,
-    ReversePipe
+    ReversePipe,
+    RouterLink
   ],
   templateUrl: './pokemon-list.html',
   styles: ``

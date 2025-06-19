@@ -7,5 +7,3 @@ export interface Pokemon {
   types: [string] |  [string, string] | [string, string,string];
   created: Date;
 }
-
-export type PokemonList = Pokemon[];

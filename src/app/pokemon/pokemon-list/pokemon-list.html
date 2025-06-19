@@ -25,7 +25,7 @@
     @for (pokemon of filteredPokemonList(); track pokemon.id)
     {
       <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-        <div class="container d-flex justify-content-center flex-column">
+        <div class="container d-flex justify-content-center flex-column" style="width:350px">
           <span class="shadow p-3 h-75" appPokemonBorderDirective [pokemonType]="pokemon.types[0]" >
              <p class="text-center"> <strong> {{pokemon.name | reverse}} </strong> </p>
             <img class="mx-5" [src]="pokemon.picture" [alt]="pokemon.name" width="150px" height="150px">
@@ -38,6 +38,13 @@
               <div >
                 <button class="btn btn-dark" (click)="decrementLive(pokemon)" [disabled]="pokemon.life <= 5" >-</button>
               </div>
+            </div>
+            <div>
+              <p>
+                <a class="text small text-muted" [routerLink]="['/pokemons',pokemon.id]">
+                  Detail
+                </a>
+              </p>
             </div>
           </span>
         </div>
