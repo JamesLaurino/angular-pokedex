@@ -15,7 +15,7 @@
         />
       </div>
       <div class="col-md-8">
-        <form>
+        <form [formGroup]="form"  (ngSubmit)="onSubmit()">
           <div class="card-body">
             <h2 class="card-title">{{ pokemon().name }}</h2>
             <table class="table">
@@ -26,7 +26,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    [value]="pokemon().name"
+                    formControlName="name"
                     placeholder="Nom du Pokémon"
                   />
                 </td>
@@ -41,7 +41,7 @@
                     <input
                       type="number"
                       class="form-control text-center"
-                      [value]="pokemon().life"
+                      formControlName="live"
                     />
                     <button class="btn btn-outline-secondary" disabled>
                       +
@@ -59,7 +59,7 @@
                     <input
                       type="number"
                       class="form-control text-center"
-                      [value]="pokemon().damage"
+                      formControlName="damage"
                     />
                     <button class="btn btn-outline-secondary" disabled>
                       +
@@ -70,12 +70,18 @@
               <tr>
                 <th scope="row">Types</th>
                 <td>
-                  @for(type of pokemon().types; track type) {
+                  @for(type of pokemonTypeList.controls; track type;
+                    let index = $index) {
                     <button
+                      [ngStyle]="{ 'background-color': PokemonColorHelper.getPokemonColor(type.value) }"
+                      [ngClass]="{'text-dark': PokemonColorHelper.getPokemonColor(type.value) ==='#f4ff81'}"
                       type="button"
                       class="btn btn-secondary btn-sm rounded-pill me-2"
-                    >
-                      {{ type }} <span class="badge">x</span>
+                      (click)="pokemonTypeList.removeAt(index)">
+                      {{ type.value }}
+                      <span
+                        [ngClass]="{'text-dark': PokemonColorHelper.getPokemonColor(type.value) ==='#f4ff81'}"
+                        class="badge">x</span>
                     </button>
                   }
                   <div class="row mt-3">
@@ -85,6 +91,9 @@
                         <div class="form-check">
                           <input
                             class="form-check-input"
+                            #checkbox
+                            (change)="onPokemonTypeChange(type, checkbox.checked)"
+                            [checked]="isPokemonTypeSelected(type)"
                             type="checkbox"
                             [value]="type"
                             [id]="type"
