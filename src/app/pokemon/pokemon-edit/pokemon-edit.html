@@ -15,7 +15,7 @@
         />
       </div>
       <div class="col-md-8">
-        <form [formGroup]="form"  (ngSubmit)="onSubmit()">
+        <form [formGroup]="form"  (ngSubmit)="onSubmit()">  <!--  FORM -->
           <div class="card-body">
             <h2 class="card-title">{{ pokemon().name }}</h2>
             <table class="table">
@@ -51,7 +51,7 @@
                     </div>
                   }
                 </td>
-              </tr>
+              </tr>  <!--  NAME -->
               <tr>
                 <th scope="row">Points de vie</th>
                 <td>
@@ -75,12 +75,15 @@
                     </button>
                   </div>
                 </td>
-              </tr>
+              </tr>  <!--  LIVE -->
               <tr>
                 <th scope="row">Dégâts</th>
                 <td>
                   <div class="input-group">
-                    <button class="btn btn-outline-secondary" disabled>
+                    <button
+                      class="btn btn-outline-secondary"
+                      (click)="decrementDamage()"
+                      [disabled]="pokemonDamage.value <= POKEMON_RULES.MIN_DAMAGE" >
                       -
                     </button>
                     <input
@@ -88,12 +91,15 @@
                       class="form-control text-center"
                       formControlName="damage"
                     />
-                    <button class="btn btn-outline-secondary" disabled>
+                    <button
+                      class="btn btn-outline-secondary"
+                      (click)="incrementDamage()"
+                      [disabled]="pokemonDamage.value >= POKEMON_RULES.MAX_DAMAGE" >
                       +
                     </button>
                   </div>
                 </td>
-              </tr>
+              </tr>  <!--  DAMAGE -->
               <tr>
                 <th scope="row">Types</th>
                 <td>
@@ -133,14 +139,13 @@
                     }
                   </div>
                 </td>
-              </tr>
+              </tr>  <!--  TYPES -->
               </tbody>
             </table>
             <div class="d-flex justify-content-between mt-4">
               <button
                 class="btn btn-link text-decoration-none text-warning"
-                [routerLink]="['/pokemons', pokemon().id]"
-              >
+                [routerLink]="['/pokemons', pokemon().id]">
                 RETOUR
               </button>
               <button class="btn btn-link text-decoration-none text-warning">

@@ -73,6 +73,10 @@ export class PokemonEdit {
     console.log(this.form.value);
   }
 
+  get pokemonLive() : FormControl {
+    return this.form.get('live') as FormControl;
+  }
+
   incrementLive() {
     this.pokemonLive.setValue(this.pokemonLive.value + 1);
   }
@@ -81,9 +85,18 @@ export class PokemonEdit {
     this.pokemonLive.setValue(this.pokemonLive.value - 1);
   }
 
-  get pokemonLive() : FormControl {
-    return this.form.get('live') as FormControl;
+  get pokemonDamage() : FormControl {
+    return this.form.get('damage') as FormControl;
   }
+
+  incrementDamage() {
+    this.pokemonDamage.setValue(this.pokemonDamage.value + 1);
+  }
+
+  decrementDamage() {
+    this.pokemonDamage.setValue(this.pokemonDamage.value - 1);
+  }
+
 
   get pokemonName() : FormControl {
     return this.form.get('name') as FormControl;
