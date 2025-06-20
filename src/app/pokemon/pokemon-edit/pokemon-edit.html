@@ -28,7 +28,28 @@
                     class="form-control"
                     formControlName="name"
                     placeholder="Nom du Pokémon"
+                    [ngClass]="{'is-invalid': pokemonName.invalid}"
                   />
+                  @if(pokemonName.hasError('required')) {
+                    <div class="invalid-feedback">
+                      Veuillez renseigner un nom.
+                    </div>
+                  }
+                  @if(pokemonName.hasError('minlength')) {
+                    <div class="invalid-feedback">
+                      Veuillez renseigner un nom de min : {{pokemonName.getError('minlength').requiredLength}}
+                    </div>
+                  }
+                  @if(pokemonName.hasError('maxlength')) {
+                    <div class="invalid-feedback">
+                      Veuillez renseigner un nom de max : {{pokemonName.getError('maxlength').requiredLength}}
+                    </div>
+                  }
+                  @if(pokemonName.hasError('pattern')) {
+                    <div class="invalid-feedback">
+                      Veuillez renseigner des caractères valides
+                    </div>
+                  }
                 </td>
               </tr>
               <tr>

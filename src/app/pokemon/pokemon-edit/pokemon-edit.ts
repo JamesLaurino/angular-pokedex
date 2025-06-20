@@ -1,9 +1,10 @@
 import {Component, inject, signal} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {PokemonService} from '../../service/pokemon-service';
-import {FormArray, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgClass} from '@angular/common';
 import {PokemonColorHelper} from '../../share/PokemonColorHelper';
+import {POKEMON_RULES} from '../../model/pokemon.model';
 
 @Component({
   selector: 'app-pokemon-edit',
@@ -22,7 +23,14 @@ export class PokemonEdit {
   pokemon = signal(this.pokemonService.getPokemonById(this.pokemonId));
 
   readonly form= new FormGroup({
-    name: new FormControl(this.pokemon().name),
+    name: new FormControl(this.pokemon().name,
+      [
+        Validators.required,
+        Validators.minLength(POKEMON_RULES.MIN_NAME),
+        Validators.maxLength(POKEMON_RULES.MAX_NAME),
+        Validators.pattern(POKEMON_RULES.NAME_PATTERN)
+      ]
+    ),
     live: new FormControl(this.pokemon().life),
     damage: new FormControl(this.pokemon().damage),
     types: new FormArray(
@@ -65,5 +73,7 @@ export class PokemonEdit {
     console.log(this.form.value);
   }
 
-  protected readonly PokemonColorHelper = PokemonColorHelper;
+  get pokemonName() : FormControl {
+    return this.form.get('name') as FormControl;
+  }
 }
