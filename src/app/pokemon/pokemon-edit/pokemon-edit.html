@@ -56,7 +56,10 @@
                 <th scope="row">Points de vie</th>
                 <td>
                   <div class="input-group">
-                    <button class="btn btn-outline-secondary" disabled>
+                    <button
+                      class="btn btn-outline-secondary"
+                      (click)="decrementLive()"
+                      [disabled]="pokemonLive.value <= POKEMON_RULES.MIN_LIFE">
                       -
                     </button>
                     <input
@@ -64,7 +67,10 @@
                       class="form-control text-center"
                       formControlName="live"
                     />
-                    <button class="btn btn-outline-secondary" disabled>
+                    <button
+                      class="btn btn-outline-secondary"
+                      (click)="incrementLive()"
+                      [disabled]="pokemonLive.value >= POKEMON_RULES.MAX_LIFE">
                       +
                     </button>
                   </div>

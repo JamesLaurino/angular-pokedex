@@ -73,7 +73,21 @@ export class PokemonEdit {
     console.log(this.form.value);
   }
 
+  incrementLive() {
+    this.pokemonLive.setValue(this.pokemonLive.value + 1);
+  }
+
+  decrementLive() {
+    this.pokemonLive.setValue(this.pokemonLive.value - 1);
+  }
+
+  get pokemonLive() : FormControl {
+    return this.form.get('live') as FormControl;
+  }
+
   get pokemonName() : FormControl {
     return this.form.get('name') as FormControl;
   }
+
+  protected readonly POKEMON_RULES = POKEMON_RULES;
 }
