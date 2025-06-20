@@ -73,14 +73,14 @@
                   @for(type of pokemonTypeList.controls; track type;
                     let index = $index) {
                     <button
-                      [ngStyle]="{ 'background-color': PokemonColorHelper.getPokemonColor(type.value) }"
-                      [ngClass]="{'text-dark': PokemonColorHelper.getPokemonColor(type.value) ==='#f4ff81'}"
+                      [style.backgroundColor]="getPokemonColor(type.value)"
+                      [ngClass]="{'text-dark': isElectricType(type.value)}"
                       type="button"
                       class="btn btn-secondary btn-sm rounded-pill me-2"
                       (click)="pokemonTypeList.removeAt(index)">
                       {{ type.value }}
                       <span
-                        [ngClass]="{'text-dark': PokemonColorHelper.getPokemonColor(type.value) ==='#f4ff81'}"
+                        [ngClass]="{'text-dark': isElectricType(type.value)}"
                         class="badge">x</span>
                     </button>
                   }

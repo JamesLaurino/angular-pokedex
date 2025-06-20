@@ -2,7 +2,7 @@ import {Component, inject, signal} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {PokemonService} from '../../service/pokemon-service';
 import {FormArray, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {JsonPipe, NgClass, NgStyle} from '@angular/common';
+import {NgClass} from '@angular/common';
 import {PokemonColorHelper} from '../../share/PokemonColorHelper';
 
 @Component({
@@ -10,9 +10,7 @@ import {PokemonColorHelper} from '../../share/PokemonColorHelper';
   imports: [
     RouterLink,
     ReactiveFormsModule,
-    JsonPipe,
     NgClass,
-    NgStyle
   ],
   templateUrl: './pokemon-edit.html',
   styles: ``
@@ -53,6 +51,14 @@ export class PokemonEdit {
 
       this.pokemonTypeList.removeAt(index);
     }
+  }
+
+  isElectricType(type:string):boolean {
+    return type === 'Electrik';
+  }
+
+  getPokemonColor(type:string):string {
+    return PokemonColorHelper.getPokemonColor(type);
   }
 
   onSubmit() {
