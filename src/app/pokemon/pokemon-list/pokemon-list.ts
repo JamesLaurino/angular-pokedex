@@ -5,6 +5,7 @@ import {PokemonBorderDirective} from '../../share/pokemon-border-directive';
 import {ReversePipe} from '../../share/reverse-pipe';
 import {Router} from '@angular/router';
 import {SearchPokemon} from '../search-pokemon/search-pokemon';
+import {toSignal} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -19,7 +20,9 @@ import {SearchPokemon} from '../search-pokemon/search-pokemon';
 export class PokemonList {
 
   private pokemonService = inject(PokemonService);
-  pokemonList = signal(this.pokemonService.getPokemon());
+  pokemonList = toSignal(this.pokemonService.getPokemon(), {
+    initialValue: []
+  });
   searchValue = signal("");
   private router = inject(Router)
 
