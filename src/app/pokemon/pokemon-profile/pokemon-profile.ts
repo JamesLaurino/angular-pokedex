@@ -1,7 +1,9 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, computed, inject, signal} from '@angular/core';
 import {PokemonService} from '../../service/pokemon-service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {DatePipe} from '@angular/common';
+import {toSignal} from '@angular/core/rxjs-interop';
+import {Pokemon} from '../../model/pokemon.model';
 
 @Component({
   selector: 'app-pokemon-profile',
@@ -18,6 +20,11 @@ export class PokemonProfile {
   private pokemonService = inject(PokemonService);
   private pokemonId = Number(this.route.snapshot.paramMap.get('id'));
 
-  pokemon = signal(this.pokemonService.getPokemonById(this.pokemonId));
+  pokemon = toSignal(this.pokemonService.getPokemonById(this.pokemonId),
+    {
+      initialValue: {id:0} as Pokemon,
+    });
+
+  isLoading = computed(() => this.pokemon().id != 0);
 
 }
