@@ -25,7 +25,7 @@ export class PokemonList {
     initialValue: []
   });
 
-  isLoaded = computed(() => this.pokemonList().length <= 0)
+  isLoading = computed(() => this.pokemonList().length <= 0)
 
   searchValue = signal("");
   private router = inject(Router)
