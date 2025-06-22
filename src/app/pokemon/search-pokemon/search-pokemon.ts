@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, Signal, signal} from '@angular/core';
+import {Component, EventEmitter, Output, signal} from '@angular/core';
 
 @Component({
   selector: 'app-search-pokemon',
