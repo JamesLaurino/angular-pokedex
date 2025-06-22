@@ -117,6 +117,18 @@
                         class="badge">x</span>
                     </button>
                   }
+                  @if(pokemonTypeList.hasError('required')) {
+                    <div class="text-danger">
+                      Veuillez renseigner au moins un type de Pokémon
+                    </div>
+                  }
+                  @if(pokemonTypeList.hasError('maxlength')) {
+                    <div class="text-danger">
+                      Veuillez renseigner au maximum
+                          {{pokemonTypeList.getError('maxlength').requiredLength}}
+                      types de Pokémon
+                    </div>
+                  }
                   <div class="row mt-3">
                     @for(type of pokemonService.getPokemonTypes(); track
                       type) {
@@ -139,18 +151,20 @@
                     }
                   </div>
                 </td>
-              </tr>  <!--  TYPES -->
+              </tr> <!--  TYPE -->
               </tbody>
             </table>
             <div class="d-flex justify-content-between mt-4">
               <button
-                class="btn btn-link text-decoration-none text-warning"
+                class="btn btn-link text-decoration-none text-dark"
                 [routerLink]="['/pokemons', pokemon().id]">
                 RETOUR
-              </button>
-              <button class="btn btn-link text-decoration-none text-warning">
+              </button> <!--  BACK -->
+              <button [disabled]="form.invalid" class="btn btn-link text-decoration-none"
+                      [class.text-warning]="form.valid"
+                      [class.text-dark]="form.invalid">
                 SAUVEGARDER LES CHANGEMENTS
-              </button>
+              </button> <!--  SAVE -->
             </div>
           </div>
         </form>
