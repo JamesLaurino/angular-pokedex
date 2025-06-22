@@ -3,7 +3,7 @@ import {PokemonService} from '../../service/pokemon-service';
 import {Pokemon} from '../../model/pokemon.model';
 import {PokemonBorderDirective} from '../../share/pokemon-border-directive';
 import {ReversePipe} from '../../share/reverse-pipe';
-import {Router, RouterLink} from '@angular/router';
+import {Router} from '@angular/router';
 import {SearchPokemon} from '../search-pokemon/search-pokemon';
 
 @Component({
@@ -11,7 +11,6 @@ import {SearchPokemon} from '../search-pokemon/search-pokemon';
   imports: [
     PokemonBorderDirective,
     ReversePipe,
-    RouterLink,
     SearchPokemon
   ],
   templateUrl: './pokemon-list.html',
