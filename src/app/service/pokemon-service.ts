@@ -1,11 +1,14 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {Pokemon} from '../model/pokemon.model';
 import {POKEMON_LIST} from '../data/pokemon-list.fake';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonService {
+
+  readonly #http:HttpClient = inject(HttpClient)
 
   getPokemon(): Pokemon[] {
     return POKEMON_LIST;
