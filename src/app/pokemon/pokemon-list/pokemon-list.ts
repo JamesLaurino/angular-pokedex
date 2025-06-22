@@ -3,7 +3,7 @@ import {PokemonService} from '../../service/pokemon-service';
 import {Pokemon} from '../../model/pokemon.model';
 import {PokemonBorderDirective} from '../../share/pokemon-border-directive';
 import {ReversePipe} from '../../share/reverse-pipe';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {SearchPokemon} from '../search-pokemon/search-pokemon';
 
 @Component({
@@ -15,13 +15,14 @@ import {SearchPokemon} from '../search-pokemon/search-pokemon';
     SearchPokemon
   ],
   templateUrl: './pokemon-list.html',
-  styles: ``
+  styles: `.pokemon-card {cursor: pointer}`
 })
 export class PokemonList {
 
   private pokemonService = inject(PokemonService);
   pokemonList = signal(this.pokemonService.getPokemon());
   searchValue = signal("");
+  private router = inject(Router)
 
   filteredPokemonList = computed(() =>
     this.pokemonList().filter(pokemon =>
@@ -33,6 +34,11 @@ export class PokemonList {
     this.searchValue.set(dataEmited);
   }
 
+  goToPokemon(pokemonId:number) {
+    console.log("click and go to pokemon : " + pokemonId);
+    this.router.navigate(['/pokemons', pokemonId]);
+  }
+
   size(pokemon: Pokemon) {
     if(pokemon.life <= 10) {
       return 'small';
@@ -41,13 +47,5 @@ export class PokemonList {
       return 'medium';
     }
     return 'big';
-  }
-
-  incrementLive(pokemon: Pokemon) {
-    pokemon.life++;
-  }
-
-  decrementLive(pokemon: Pokemon) {
-    pokemon.life--;
   }
 }
