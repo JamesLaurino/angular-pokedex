@@ -1,5 +1,13 @@
 <app-search-pokemon (dataEmitted)="pokemonSearch($event)" />
 
+@if (isLoaded()) {
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+}
+
 <div class="container">
   <div class="row">
     @for (pokemon of filteredPokemonList(); track pokemon.id)

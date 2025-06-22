@@ -20,9 +20,13 @@ import {toSignal} from '@angular/core/rxjs-interop';
 export class PokemonList {
 
   private pokemonService = inject(PokemonService);
+
   pokemonList = toSignal(this.pokemonService.getPokemon(), {
     initialValue: []
   });
+
+  isLoaded = computed(() => this.pokemonList().length <= 0)
+
   searchValue = signal("");
   private router = inject(Router)
 
