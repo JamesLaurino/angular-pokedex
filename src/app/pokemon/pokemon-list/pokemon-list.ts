@@ -41,7 +41,6 @@ export class PokemonList {
   }
 
   goToPokemon(pokemonId:number) {
-    console.log("click and go to pokemon : " + pokemonId);
     this.router.navigate(['/pokemons', pokemonId]);
   }
 
