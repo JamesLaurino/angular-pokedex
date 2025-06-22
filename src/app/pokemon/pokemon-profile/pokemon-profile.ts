@@ -1,4 +1,4 @@
-import {Component, computed, inject, signal} from '@angular/core';
+import {Component, computed, effect, inject, signal} from '@angular/core';
 import {PokemonService} from '../../service/pokemon-service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {DatePipe} from '@angular/common';
@@ -20,11 +20,5 @@ export class PokemonProfile {
   private pokemonService = inject(PokemonService);
   private pokemonId = Number(this.route.snapshot.paramMap.get('id'));
 
-  pokemon = toSignal(this.pokemonService.getPokemonById(this.pokemonId),
-    {
-      initialValue: {id:0} as Pokemon,
-    });
-
-  isLoading = computed(() => this.pokemon().id != 0);
-
+  pokemon = toSignal(this.pokemonService.getPokemonById(this.pokemonId));
 }
