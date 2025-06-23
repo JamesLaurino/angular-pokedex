@@ -24,6 +24,10 @@ export class PokemonService {
     return this.#http.get<Pokemon>(this.#POKEMON_URL + "/" + id);
   }
 
+  deletePokemon(id: number): Observable<void> {
+    return this.#http.delete<void>(this.#POKEMON_URL + "/" + id);
+  }
+
   getPokemonTypes():string[] {
     const pokemons = POKEMON_LIST;
     let types:string[] = [];

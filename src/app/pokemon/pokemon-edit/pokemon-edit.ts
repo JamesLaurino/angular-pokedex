@@ -4,10 +4,8 @@ import {PokemonService} from '../../service/pokemon-service';
 import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgClass} from '@angular/common';
 import {PokemonColorHelper} from '../../share/PokemonColorHelper';
-import {Pokemon, POKEMON_RULES} from '../../model/pokemon.model';
+import {POKEMON_RULES} from '../../model/pokemon.model';
 import {toSignal} from '@angular/core/rxjs-interop';
-import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-pokemon-edit',
