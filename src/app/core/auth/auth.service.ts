@@ -1,16 +1,16 @@
-import {Injectable, signal} from '@angular/core';
-import {delay, Observable, of} from 'rxjs';
+import {inject, Injectable, signal} from '@angular/core';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {User} from '../../model/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  readonly #isLoggIn = signal(false);
-  readonly isLoggIn = this.#isLoggIn.asReadonly();
 
-  login(name:string,password:string):Observable<boolean>{
-    const isLoggIn = name === 'Pikachu' && password === 'Pikachu';
-    this.#isLoggIn.set(isLoggIn);
-    return of(isLoggIn).pipe(delay(1000))
+  readonly #http = inject(HttpClient);
+
+  login(user:User):Observable<string> {
+    return this.#http.post<string>('http://localhost:8080/demo',user);
   }
 }

@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core'
 import { AuthService } from '../core/auth/auth.service';
 import { Router } from '@angular/router';
+import {User} from '../model/user.model';
 
 @Component({
   selector: 'app-login',
@@ -19,18 +20,25 @@ export class LoginComponent {
     event.preventDefault();
     this.message.set('Tentative de connexion en cours ...');
 
+    let user:User  = {
+      id:1,
+      userName: this.name(),
+      password: this.password()
+    }
+
     this.authService
-      .login(this.name(), this.password())
-      .subscribe((isLoggedIn) => {
-        if (!isLoggedIn) {
+      .login(user).subscribe((token:string) =>
+      {
+        console.log(token);
+        if (token === null) {
           this.name.set('');
           this.password.set('');
           this.message.set('Les identifiants saisis sont invalides.');
-
           return;
+        } else {
+          localStorage.setItem('token', token);
+          this.router.navigate(['/pokemons']);
         }
-
-        this.router.navigate(['/pokemons']);
       });
   }
 }
