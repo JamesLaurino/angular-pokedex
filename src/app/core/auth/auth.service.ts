@@ -9,7 +9,7 @@ export class AuthService {
   readonly isLoggIn = this.#isLoggIn.asReadonly();
 
   login(name:string,password:string):Observable<boolean>{
-    const isLoggIn = name === 'Pikachu' && password === 'Pikachu#';
+    const isLoggIn = name === 'Pikachu' && password === 'Pikachu';
     this.#isLoggIn.set(isLoggIn);
     return of(isLoggIn).pipe(delay(1000))
   }
