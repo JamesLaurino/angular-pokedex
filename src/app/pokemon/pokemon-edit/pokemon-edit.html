@@ -54,6 +54,7 @@
                   <td>
                     <div class="input-group">
                       <button
+                        type="button"
                         class="btn btn-outline-secondary"
                         (click)="decrementLive()"
                         [disabled]="pokemonLive.value <= POKEMON_RULES.MIN_LIFE">
@@ -65,6 +66,7 @@
                         formControlName="live"
                       />
                       <button
+                        type="button"
                         class="btn btn-outline-secondary"
                         (click)="incrementLive()"
                         [disabled]="pokemonLive.value >= POKEMON_RULES.MAX_LIFE">
@@ -78,6 +80,7 @@
                   <td>
                     <div class="input-group">
                       <button
+                        type="button"
                         class="btn btn-outline-secondary"
                         (click)="decrementDamage()"
                         [disabled]="pokemonDamage.value <= POKEMON_RULES.MIN_DAMAGE" >
@@ -89,6 +92,7 @@
                         formControlName="damage"
                       />
                       <button
+                        type="button"
                         class="btn btn-outline-secondary"
                         (click)="incrementDamage()"
                         [disabled]="pokemonDamage.value >= POKEMON_RULES.MAX_DAMAGE" >

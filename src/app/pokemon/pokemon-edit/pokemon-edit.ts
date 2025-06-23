@@ -1,11 +1,13 @@
 import {Component, effect, inject} from '@angular/core';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {PokemonService} from '../../service/pokemon-service';
 import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgClass} from '@angular/common';
 import {PokemonColorHelper} from '../../share/PokemonColorHelper';
-import {POKEMON_RULES} from '../../model/pokemon.model';
+import {Pokemon, POKEMON_RULES} from '../../model/pokemon.model';
 import {toSignal} from '@angular/core/rxjs-interop';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-pokemon-edit',
@@ -21,6 +23,7 @@ export class PokemonEdit {
   private routes = inject(ActivatedRoute)
   protected pokemonId = Number(this.routes.snapshot.paramMap.get('id'));
   protected pokemonService = inject(PokemonService);
+  private router = inject(Router);
   pokemon = toSignal(this.pokemonService.getPokemonById(this.pokemonId));
 
   readonly form= new FormGroup({
@@ -93,7 +96,22 @@ export class PokemonEdit {
   }
 
   onSubmit() {
-    console.log(this.form.value);
+    const isValid = this.form.valid;
+    const pokemon = this.pokemon(); // old pokemon
+
+    if(isValid && pokemon) {
+      const updatedPokemon = {
+        ...pokemon,
+        name: this.pokemonName.value,
+        life: Number(this.pokemonLive.value),
+        damage: Number(this.pokemonDamage.value),
+        types: this.pokemonTypeList.value
+      };
+
+     this.pokemonService.updatePokemon(updatedPokemon).subscribe(() =>
+       this.router.navigate(['/pokemons', pokemon.id]))
+
+    }
   }
 
   get pokemonLive() : FormControl {
