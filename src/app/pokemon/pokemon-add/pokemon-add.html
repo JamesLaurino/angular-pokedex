@@ -1,1 +1,113 @@
-<p>pokemon-add works!</p>
+<div class="container mt-5">
+  <div class="card">
+    <div class="row g-0">
+      <div
+        class="col-md-4 d-flex align-items-center justify-content-center bg-light"
+      >
+        <img
+          class="img-fluid rounded-start"
+        />
+      </div>
+      <div class="col-md-8">
+        <form (ngSubmit)="onSubmit()">  <!--  FORM -->
+          <div class="card-body">
+            <h2 class="card-title"></h2>
+            <table class="table">
+              <tbody>
+              <tr>
+                <th scope="row">Name</th>
+                <td>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="name"
+                    placeholder="Nom du Pokémon"
+                  />
+                </td>
+              </tr>  <!--  NAME -->
+              <tr>
+                <th scope="row">Points de vie</th>
+                <td>
+                  <div class="input-group">
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary">
+                      -
+                    </button>
+                    <input
+                      type="number"
+                      class="form-control text-center"
+                      formControlName="live"
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary">
+                      +
+                    </button>
+                  </div>
+                </td>
+              </tr>  <!--  LIVE -->
+              <tr>
+                <th scope="row">Dégâts</th>
+                <td>
+                  <div class="input-group">
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary">
+                      -
+                    </button>
+                    <input
+                      type="number"
+                      class="form-control text-center"
+                      formControlName="damage"
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary">
+                      +
+                    </button>
+                  </div>
+                </td>
+              </tr>  <!--  DAMAGE -->
+              <tr>
+                <th scope="row">Types</th>
+                <td>
+                  <div class="row mt-3">
+                    @for(type of pokemonService.getPokemonTypes(); track
+                      type) {
+                      <div class="col-md-4">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            #checkbox
+                            type="checkbox"
+                            [value]="type"
+                            [id]="type"
+                          />
+                          <label class="form-check-label" [for]="type">
+                            {{ type }}
+                          </label>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </td>
+              </tr> <!--  TYPE -->
+              </tbody>
+            </table>
+            <div class="d-flex justify-content-between mt-4">
+              <button
+                class="btn btn-link text-decoration-none text-dark"
+                [routerLink]="['/pokemons']">
+                RETOUR
+              </button> <!--  BACK -->
+              <button class="btn btn-link text-decoration-none">
+                SAUVEGARDER LES CHANGEMENTS
+              </button> <!--  SAVE -->
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
