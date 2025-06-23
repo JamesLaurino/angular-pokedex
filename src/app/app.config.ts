@@ -6,8 +6,14 @@ import {PageNotFound} from './page-not-found/page-not-found';
 import {PokemonEdit} from './pokemon/pokemon-edit/pokemon-edit';
 import {provideHttpClient} from '@angular/common/http';
 import {AuthGuard} from './core/auth/auth.guard';
+import {LoginComponent} from './login/login.component';
 
 const routes:Routes = [
+  {
+    path: 'login',
+    component: LoginComponent,
+    title: 'Page de connexion',
+  },
   {
     path:"pokemons",
     canActivateChild: [AuthGuard],
