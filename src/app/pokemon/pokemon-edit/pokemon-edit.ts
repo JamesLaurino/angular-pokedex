@@ -69,8 +69,8 @@ export class PokemonEdit {
   }
 
   isPokemonTypeSelected(type:string):boolean{
-    return !!this.pokemonTypeList.controls
-      .find(control => control.value === type);
+    return Boolean(this.pokemonTypeList.controls
+      .find(control => control.value === type));
   }
 
   onPokemonTypeChange(type:string,isChecked:boolean) {
