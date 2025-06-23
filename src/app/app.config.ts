@@ -7,6 +7,7 @@ import {PokemonEdit} from './pokemon/pokemon-edit/pokemon-edit';
 import {provideHttpClient} from '@angular/common/http';
 import {AuthGuard} from './core/auth/auth.guard';
 import {LoginComponent} from './login/login.component';
+import {PokemonAdd} from './pokemon/pokemon-add/pokemon-add';
 
 const routes:Routes = [
   {
@@ -18,6 +19,11 @@ const routes:Routes = [
     path:"pokemons",
     canActivateChild: [AuthGuard],
     children: [
+      {
+        path:"add",
+        component:PokemonAdd,
+        title:"Add"
+      },
       {
         path:"edit/:id",
         component:PokemonEdit,

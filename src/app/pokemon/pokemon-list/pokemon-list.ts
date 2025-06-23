@@ -36,6 +36,10 @@ export class PokemonList {
     )
   );
 
+  addPokemon() {
+    this.router.navigate(['/pokemons/add']);
+  }
+
   pokemonSearch(dataEmited: string) {
     this.searchValue.set(dataEmited);
   }

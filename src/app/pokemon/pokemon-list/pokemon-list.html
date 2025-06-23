@@ -1,4 +1,9 @@
 <app-search-pokemon (dataEmitted)="pokemonSearch($event)" />
+<div class="container d-flex justify-content-end fixed-bottom mb-3">
+      <div>
+        <button (click)="addPokemon()" type="button" class="btn btn-danger rounded-circle">+</button>
+      </div>
+</div>
 
 @if (isLoading()) {
   <div class="d-flex justify-content-center">
