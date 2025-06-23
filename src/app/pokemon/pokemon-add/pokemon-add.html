@@ -9,7 +9,7 @@
         />
       </div>
       <div class="col-md-8">
-        <form (ngSubmit)="onSubmit()">  <!--  FORM -->
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">  <!--  FORM -->
           <div class="card-body">
             <h2 class="card-title"></h2>
             <table class="table">
@@ -25,6 +25,17 @@
                   />
                 </td>
               </tr>  <!--  NAME -->
+              <tr>
+                <th scope="row">Picture</th>
+                <td>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="picture"
+                    placeholder="Image value"
+                  />
+                </td>
+              </tr>  <!--  PICTURE -->
               <tr>
                 <th scope="row">Points de vie</th>
                 <td>
