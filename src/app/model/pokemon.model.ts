@@ -1,5 +1,5 @@
 export interface Pokemon {
-  id: number;
+  id?: number;
   name: string;
   picture: string;
   life: number;
@@ -10,6 +10,7 @@ export interface Pokemon {
 
 export const POKEMON_RULES = {
   NAME_PATTERN: /^[a-zA-Zéè]+$/,
+  PICTURE_PATTERN: /^https:\/\/assets\.pokemon\.com\/assets\/cms2\/img\/pokedex\/detail\/[0-9]{3}\.png$/,
   MAX_NAME: 20,
   MIN_NAME: 3,
   MAX_LIFE: 30,

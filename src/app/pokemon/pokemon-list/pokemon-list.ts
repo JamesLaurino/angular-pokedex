@@ -1,9 +1,9 @@
-import {Component, computed, inject, signal} from '@angular/core';
+import {Component, computed, inject, OnInit, signal} from '@angular/core';
 import {PokemonService} from '../../service/pokemon-service';
 import {Pokemon} from '../../model/pokemon.model';
 import {PokemonBorderDirective} from '../../share/pokemon-border-directive';
 import {ReversePipe} from '../../share/reverse-pipe';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {SearchPokemon} from '../search-pokemon/search-pokemon';
 import {toSignal} from '@angular/core/rxjs-interop';
 
@@ -17,7 +17,18 @@ import {toSignal} from '@angular/core/rxjs-interop';
   templateUrl: './pokemon-list.html',
   styles: `.pokemon-card {cursor: pointer}`
 })
-export class PokemonList {
+export class PokemonList implements OnInit{
+
+  readonly route = inject(ActivatedRoute);
+
+  ngOnInit():void {
+    this.route.queryParams.subscribe(params => {
+      const message = params['message'];
+      if (message) {
+        console.log(message);
+      }
+    });
+  }
 
   private pokemonService = inject(PokemonService);
 
@@ -50,11 +61,13 @@ export class PokemonList {
 
   size(pokemon: Pokemon) {
     if(pokemon.life <= 10) {
-      return 'small';
+      return 'Petit';
     }
     if(pokemon.life <= 20) {
-      return 'medium';
+      return 'Moyen';
     }
-    return 'big';
+    return 'Grand';
   }
+
+  protected readonly Number = Number;
 }

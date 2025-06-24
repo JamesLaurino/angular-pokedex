@@ -2,9 +2,12 @@
   <div class="card">
     <div class="row g-0">
       <div
-        class="col-md-4 d-flex align-items-center justify-content-center bg-light"
-      >
+        class="col-md-4 d-flex align-items-center justify-content-center bg-light">
         <img
+          height="350px"
+          width="350px"
+          alt="pokemon image"
+          [src]="pokemonPicture.value"
           class="img-fluid rounded-start"
         />
       </div>
@@ -23,6 +26,28 @@
                     formControlName="name"
                     placeholder="Nom du Pokémon"
                   />
+                  @if(pokemonName.hasError('required') && pokemonName.touched) {
+                    <div class="text-danger">
+                      Veuillez renseigner un nom de Pokémon
+                    </div>
+                  }
+                  @if(pokemonName.hasError('minlength') && pokemonName.touched) {
+                    <div class="text-danger">
+                      Veuillez renseigner un minimum
+                      {{pokemonName.getError('minlength').requiredLength}} caractères
+                    </div>
+                  }
+                  @if(pokemonName.hasError('maxlength') && pokemonName.touched) {
+                    <div class="text-danger">
+                      Veuillez renseigner un maximum
+                      {{pokemonName.getError('maxlength').requiredLength}} caractères
+                    </div>
+                  }
+                  @if(pokemonName.hasError('pattern') && pokemonName.touched) {
+                    <div class="text-danger">
+                      Veuillez ne renseigner auncun caractère spéciaux
+                    </div>
+                  }
                 </td>
               </tr>  <!--  NAME -->
               <tr>
@@ -30,10 +55,20 @@
                 <td>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control text-truncate-start"
                     formControlName="picture"
-                    placeholder="Image value"
+                    placeholder="pokémon image"
                   />
+                  @if(pokemonPicture.hasError('required')) {
+                    <div class="text-danger">
+                      Veuillez renseigner une image de Pokémon
+                    </div>
+                  }
+                  @if(pokemonPicture.hasError('pattern') && pokemonPicture.dirty) {
+                    <div class="text-danger">
+                      Veuillez renseigner une url d'image valide
+                    </div>
+                  }
                 </td>
               </tr>  <!--  PICTURE -->
               <tr>
@@ -42,6 +77,8 @@
                   <div class="input-group">
                     <button
                       type="button"
+                      (click)="decrementLive()"
+                      [disabled]="pokemonLive.value <= POKEMON_RULES.MIN_LIFE"
                       class="btn btn-outline-secondary">
                       -
                     </button>
@@ -52,6 +89,8 @@
                     />
                     <button
                       type="button"
+                      (click)="incrementLive()"
+                      [disabled]="pokemonLive.value >= POKEMON_RULES.MAX_LIFE"
                       class="btn btn-outline-secondary">
                       +
                     </button>
@@ -64,6 +103,8 @@
                   <div class="input-group">
                     <button
                       type="button"
+                      (click)="decrementDamage()"
+                      [disabled]="pokemonDamage.value <= POKEMON_RULES.MIN_DAMAGE"
                       class="btn btn-outline-secondary">
                       -
                     </button>
@@ -74,6 +115,8 @@
                     />
                     <button
                       type="button"
+                      (click)="incrementDamage()"
+                      [disabled]="pokemonDamage.value >= POKEMON_RULES.MAX_DAMAGE"
                       class="btn btn-outline-secondary">
                       +
                     </button>
@@ -83,15 +126,29 @@
               <tr>
                 <th scope="row">Types</th>
                 <td>
+                    @for(type of pokemonTypesArray.controls; track type;){
+                      <button
+                        type="button"
+                        [ngStyle]="{'background-color': pokemonColor(type.value)}"
+                        [ngClass]="{'text-dark': isPokemonElectric(type.value)}"
+                        class="btn btn-secondary btn-sm rounded-pill me-2">
+                        {{type.value}}
+                        <span
+                          [ngClass]="{'text-dark': isPokemonElectric(type.value)}"
+                          (click)="badgeClick(type.value)" class="badge">x</span>
+                      </button>
+                    }
                   <div class="row mt-3">
-                    @for(type of pokemonService.getPokemonTypes(); track
-                      type) {
+                    @for(type of pokemonService.getPokemonTypes(); track type)
+                    {
                       <div class="col-md-4">
                         <div class="form-check">
                           <input
                             class="form-check-input"
                             #checkbox
                             type="checkbox"
+                            (change)="isTypeCheck(checkbox.checked,type)"
+                            [checked]="isPokemonTypeSelected(type)"
                             [value]="type"
                             [id]="type"
                           />
@@ -99,6 +156,18 @@
                             {{ type }}
                           </label>
                         </div>
+                      </div>
+                    }
+                    @if(pokemonTypesArray.hasError('required')) {
+                      <div class="text-danger">
+                        Veuillez renseigner au moins un type de Pokémon
+                      </div>
+                    }
+                    @if(pokemonTypesArray.hasError('maxlength')) {
+                      <div class="text-danger">
+                        Veuillez renseigner au maximum
+                        {{pokemonTypesArray.getError('maxlength').requiredLength}}
+                        types de Pokémon
                       </div>
                     }
                   </div>
@@ -112,7 +181,9 @@
                 [routerLink]="['/pokemons']">
                 RETOUR
               </button> <!--  BACK -->
-              <button class="btn btn-link text-decoration-none">
+              <button
+                [disabled]="form.invalid"
+                class="btn btn-link text-decoration-none">
                 SAUVEGARDER LES CHANGEMENTS
               </button> <!--  SAVE -->
             </div>
@@ -121,4 +192,8 @@
       </div>
     </div>
   </div>
+</div>
+
+<div>
+  {{form.value | json}}
 </div>

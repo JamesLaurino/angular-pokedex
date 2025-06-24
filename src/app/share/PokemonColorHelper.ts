@@ -1,5 +1,9 @@
 export class PokemonColorHelper
 {
+  static isElectricType(type:string):boolean {
+    return type === "Electrik";
+  }
+
   static getPokemonColor(type:string):string {
     switch (type) {
       case 'Feu':

@@ -17,11 +17,11 @@
   <div class="row">
     @for (pokemon of filteredPokemonList(); track pokemon.id)
     {
-      <div class="col-lg-4 col-md-6 col-sm-12 mb-3 pokemon-card" (click)="goToPokemon(pokemon.id)">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-3 pokemon-card" (click)="goToPokemon(Number(pokemon.id))">
         <div class="container d-flex justify-content-center flex-column" style="width:350px">
           <span class="shadow p-3 h-75" appPokemonBorderDirective [pokemonType]="pokemon.types[0]" >
              <p class="text-center"> <strong> {{pokemon.name | reverse}} </strong> </p>
-            <img class="mx-5" [src]="pokemon.picture" [alt]="pokemon.name" width="150px" height="150px">
+            <img class="mx-5" [src]="pokemon.picture" [alt]="pokemon.name" width="200px" height="200px">
             <p>Point de vie {{pokemon.life}}</p>
             <p>Taille {{size(pokemon)}}</p>
             <p>Dégat : {{pokemon.damage}}</p>
