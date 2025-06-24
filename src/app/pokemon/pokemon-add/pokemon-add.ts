@@ -104,7 +104,7 @@ export class PokemonAdd {
   }
 
   onSubmit() {
-    const pokemon:Pokemon = {
+    const pokemon:Omit<Pokemon, 'id'> = {
       name: this.pokemonName.value,
       life: this.pokemonLive.value,
       picture: this.pokemonPicture.value,
@@ -116,9 +116,9 @@ export class PokemonAdd {
     this.pokemonService.addPokemon(pokemon).subscribe(() => {
       if(pokemon) {
         this.router.navigate(['/pokemons'], {
-          queryParams: this.pokemonName.value
-            ? { message: 'Pokémon ' + this.pokemonName.value + ' ajouté avec succès' }
-            : {}
+          queryParams:
+            this.pokemonName.value ?
+              { message: 'Pokémon ' + this.pokemonName.value + ' ajouté avec succès' } : {}
         });
       }
       return;
