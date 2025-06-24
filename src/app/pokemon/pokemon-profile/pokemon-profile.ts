@@ -33,7 +33,11 @@ export class PokemonProfile {
 
   deletePokemon() {
     this.pokemonService.deletePokemon(this.pokemonId).subscribe(() =>{
-      this.router.navigate(['/pokemons']);
+      this.router.navigate(['/pokemons'], {
+        queryParams:
+          this.pokemonId ?
+            { message: 'Pokémon supprimé avec succès' } : {}
+      });
     })
   }
 
