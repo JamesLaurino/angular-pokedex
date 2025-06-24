@@ -1,4 +1,4 @@
-import {Component, computed, inject, OnInit, signal} from '@angular/core';
+import {AfterViewInit, Component, computed, ElementRef, inject, OnInit, signal, ViewChild} from '@angular/core';
 import {PokemonService} from '../../service/pokemon-service';
 import {Pokemon} from '../../model/pokemon.model';
 import {PokemonBorderDirective} from '../../share/pokemon-border-directive';
@@ -6,6 +6,7 @@ import {ReversePipe} from '../../share/reverse-pipe';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SearchPokemon} from '../search-pokemon/search-pokemon';
 import {toSignal} from '@angular/core/rxjs-interop';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-pokemon-list',
@@ -17,17 +18,28 @@ import {toSignal} from '@angular/core/rxjs-interop';
   templateUrl: './pokemon-list.html',
   styles: `.pokemon-card {cursor: pointer}`
 })
-export class PokemonList implements OnInit{
+export class PokemonList implements OnInit, AfterViewInit {
+
+  @ViewChild('toastElement') toastElement!: ElementRef;
+  private toastInstance: any;
+  protected messageFromQueryParam: string | null = null;
 
   readonly route = inject(ActivatedRoute);
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      const message = params['message'];
-      if (message) {
-        console.log(message);
-      }
+      this.messageFromQueryParam = params['message'] ?? null;
     });
+  }
+
+  ngAfterViewInit(): void {
+    if (this.toastElement) {
+      this.toastInstance = new bootstrap.Toast(this.toastElement.nativeElement);
+
+      if (this.messageFromQueryParam) {
+        this.toastInstance.show();
+      }
+    }
   }
 
   private pokemonService = inject(PokemonService);

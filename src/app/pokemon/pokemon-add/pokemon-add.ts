@@ -115,7 +115,6 @@ export class PokemonAdd {
 
     this.pokemonService.addPokemon(pokemon).subscribe(() => {
       if(pokemon) {
-        // this.router.navigate(['/pokemons']);
         this.router.navigate(['/pokemons'], {
           queryParams: this.pokemonName.value
             ? { message: 'Pokémon ' + this.pokemonName.value + ' ajouté avec succès' }
