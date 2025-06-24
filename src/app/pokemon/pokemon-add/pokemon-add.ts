@@ -3,7 +3,7 @@ import {FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Val
 import {Router, RouterLink} from '@angular/router';
 import {PokemonService} from '../../service/pokemon-service';
 import {Pokemon, POKEMON_RULES} from '../../model/pokemon.model';
-import {JsonPipe, NgClass, NgStyle} from '@angular/common';
+import {NgClass, NgStyle} from '@angular/common';
 import {PokemonColorHelper} from '../../share/PokemonColorHelper';
 
 @Component({
@@ -12,7 +12,6 @@ import {PokemonColorHelper} from '../../share/PokemonColorHelper';
     ReactiveFormsModule,
     RouterLink,
     FormsModule,
-    JsonPipe,
     NgStyle,
     NgClass,
   ],
