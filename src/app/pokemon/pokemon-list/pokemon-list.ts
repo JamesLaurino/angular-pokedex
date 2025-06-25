@@ -1,12 +1,11 @@
 import {AfterViewInit, Component, computed, ElementRef, inject, OnInit, signal, ViewChild} from '@angular/core';
-import {PokemonService} from '../../service/pokemon-service';
 import {Pokemon} from '../../model/pokemon.model';
 import {PokemonBorderDirective} from '../../share/pokemon-border-directive';
 import {ReversePipe} from '../../share/reverse-pipe';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SearchPokemon} from '../search-pokemon/search-pokemon';
-import {toSignal} from '@angular/core/rxjs-interop';
 import {httpResource} from '@angular/common/http';
+
 declare var bootstrap: any;
 
 @Component({
