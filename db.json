@@ -1,4 +1,11 @@
 {
+  "users": [
+    {
+      "id": 1,
+      "username": "Pikachu",
+      "password": "Pikachu"
+    }
+  ],
   "pokemons": [
     {
       "id": 1,
@@ -107,6 +114,31 @@
       "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/037.png",
       "types": ["Feu"],
       "created": "2024-08-16T00:00:00Z"
+    },
+    {
+      "name": "Charizard",
+      "life": 30,
+      "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/006.png",
+      "damage": 10,
+      "types": [
+        "Feu",
+        "Normal",
+        "Vol"
+      ],
+      "created": "2025-06-24T10:16:04.102Z",
+      "id": 13
+    },
+    {
+      "name": "Pokemon",
+      "life": 16,
+      "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/100.png",
+      "damage": 5,
+      "types": [
+        "Electrik",
+        "Vol"
+      ],
+      "created": "2025-06-24T11:48:43.280Z",
+      "id": 14
     }
   ]
 }
