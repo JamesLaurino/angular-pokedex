@@ -1,13 +1,12 @@
-import {inject, Injectable} from '@angular/core';
+import {inject} from '@angular/core';
 import {Pokemon} from '../model/pokemon.model';
 import {POKEMON_LIST} from '../data/pokemon-list.fake';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {PokemonService} from './Interface/Pokemon-service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class PokemonService {
+
+export class PokemonJsonService implements PokemonService{
 
   readonly #POKEMON_URL = 'http://localhost:3001/pokemons';
   readonly #http:HttpClient = inject(HttpClient)

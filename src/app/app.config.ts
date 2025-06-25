@@ -8,6 +8,16 @@ import {provideHttpClient} from '@angular/common/http';
 import {AuthGuard} from './core/auth/auth.guard';
 import {LoginComponent} from './login/login.component';
 import {PokemonAdd} from './pokemon/pokemon-add/pokemon-add';
+import {environment} from '../environments/environment';
+import {PokemonService} from './service/Interface/Pokemon-service';
+import {PokemonStorageService} from './service/Pokemon-storage-service';
+import {PokemonJsonService} from './service/pokemon-json-service';
+
+export function pokemonServiceFactory(): PokemonService {
+  return environment.production
+    ? new PokemonStorageService()
+    : new PokemonJsonService();
+}
 
 const routes:Routes = [
   {
@@ -50,6 +60,10 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient()
+    provideHttpClient(),
+    {
+      provide: PokemonService,
+      useFactory: pokemonServiceFactory
+    },
   ]
 };
