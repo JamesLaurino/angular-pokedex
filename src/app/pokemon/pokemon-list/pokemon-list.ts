@@ -5,6 +5,8 @@ import {ReversePipe} from '../../share/reverse-pipe';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SearchPokemon} from '../search-pokemon/search-pokemon';
 import {httpResource} from '@angular/common/http';
+import {PokemonService} from '../../service/Interface/Pokemon-service';
+import {rxResource} from '@angular/core/rxjs-interop';
 
 declare var bootstrap: any;
 
@@ -20,11 +22,14 @@ declare var bootstrap: any;
 })
 export class PokemonList implements OnInit, AfterViewInit {
 
+  readonly route = inject(ActivatedRoute);
+  private router = inject(Router)
+  readonly pokemonService = inject(PokemonService);
+
   @ViewChild('toastElement') toastElement!: ElementRef;
   private toastInstance: any;
   protected messageFromQueryParam: string | null = null;
-
-  readonly route = inject(ActivatedRoute);
+  searchValue = signal("");
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -42,16 +47,14 @@ export class PokemonList implements OnInit, AfterViewInit {
     }
   }
 
-  readonly #POKEMON_URL = 'http://localhost:3001/pokemons';
-
-  readonly pokemonList =
-    httpResource<Pokemon[]>(() => this.#POKEMON_URL, {defaultValue: []})
-
-  searchValue = signal("");
-  private router = inject(Router)
+   pokemonList = rxResource({
+     stream: () => {
+      return this.pokemonService.getPokemonList()
+    }
+  })
 
   filteredPokemonList = computed(() =>
-    this.pokemonList.value().filter(pokemon =>
+    this.pokemonList.value()?.filter(pokemon =>
       pokemon.name.toLowerCase().includes(this.searchValue().trim().toLowerCase())
     )
   );
