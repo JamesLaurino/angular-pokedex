@@ -4,7 +4,6 @@ import {PokemonBorderDirective} from '../../share/pokemon-border-directive';
 import {ReversePipe} from '../../share/reverse-pipe';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SearchPokemon} from '../search-pokemon/search-pokemon';
-import {httpResource} from '@angular/common/http';
 import {PokemonService} from '../../service/Interface/Pokemon-service';
 import {rxResource} from '@angular/core/rxjs-interop';
 

@@ -1,8 +1,7 @@
-import {Component, computed, inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {DatePipe} from '@angular/common';
-import {toSignal} from '@angular/core/rxjs-interop';
-import {catchError, map, of} from 'rxjs';
+import {rxResource} from '@angular/core/rxjs-interop';
 import {PokemonService} from '../../service/Interface/Pokemon-service';
 
 @Component({
@@ -21,15 +20,12 @@ export class PokemonProfile {
   private pokemonId = Number(this.route.snapshot.paramMap.get('id'));
   private router  = inject(Router);
 
-  readonly pokemonResponse = toSignal(this.pokemonService
-    .getPokemonById(this.pokemonId)
-    .pipe(
-      map((pokemon) =>(
-        {value: pokemon, error: null}
-      )),
-      catchError((error) => of({value: null, error:error}))
-    )
-  );
+  pokemonResponse = rxResource({
+    params: () => this.pokemonId,
+    stream: ({params:id}) => {
+      return this.pokemonService.getPokemonById(id)
+    }
+  })
 
   deletePokemon() {
     this.pokemonService.deletePokemon(this.pokemonId).subscribe(() =>{
@@ -40,13 +36,4 @@ export class PokemonProfile {
       });
     })
   }
-
-  readonly loading = computed(() =>
-    this.pokemonResponse() === undefined);
-
-  readonly error = computed(() =>
-    this.pokemonResponse()?.error);
-
-  readonly pokemon = computed(() =>
-    this.pokemonResponse()?.value);
 }
