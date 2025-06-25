@@ -47,8 +47,6 @@ export class PokemonList implements OnInit, AfterViewInit {
   readonly pokemonList =
     httpResource<Pokemon[]>(() => this.#POKEMON_URL, {defaultValue: []})
 
-  isLoading = this.pokemonList.isLoading;
-
   searchValue = signal("");
   private router = inject(Router)
 
