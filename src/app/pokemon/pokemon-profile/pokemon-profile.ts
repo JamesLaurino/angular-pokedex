@@ -1,9 +1,9 @@
 import {Component, computed, inject} from '@angular/core';
-import {PokemonService} from '../../service/pokemon-service';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {catchError, map, of} from 'rxjs';
+import {PokemonService} from '../../service/Interface/Pokemon-service';
 
 @Component({
   selector: 'app-pokemon-profile',

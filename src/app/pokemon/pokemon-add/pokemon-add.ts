@@ -1,10 +1,10 @@
 import {Component, inject} from '@angular/core';
 import {FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router, RouterLink} from '@angular/router';
-import {PokemonService} from '../../service/pokemon-service';
 import {Pokemon, POKEMON_RULES} from '../../model/pokemon.model';
 import {NgClass, NgStyle} from '@angular/common';
 import {PokemonColorHelper} from '../../share/PokemonColorHelper';
+import {PokemonService} from '../../service/Interface/Pokemon-service';
 
 @Component({
   selector: 'app-pokemon-add',
