@@ -6,6 +6,7 @@ import {ReversePipe} from '../../share/reverse-pipe';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SearchPokemon} from '../search-pokemon/search-pokemon';
 import {toSignal} from '@angular/core/rxjs-interop';
+import {httpResource} from '@angular/common/http';
 declare var bootstrap: any;
 
 @Component({
@@ -42,19 +43,18 @@ export class PokemonList implements OnInit, AfterViewInit {
     }
   }
 
-  private pokemonService = inject(PokemonService);
+  readonly #POKEMON_URL = 'http://localhost:3001/pokemons';
 
-  pokemonList = toSignal(this.pokemonService.getPokemon(), {
-    initialValue: []
-  });
+  readonly pokemonList =
+    httpResource<Pokemon[]>(() => this.#POKEMON_URL, {defaultValue: []})
 
-  isLoading = computed(() => this.pokemonList().length <= 0)
+  isLoading = this.pokemonList.isLoading;
 
   searchValue = signal("");
   private router = inject(Router)
 
   filteredPokemonList = computed(() =>
-    this.pokemonList().filter(pokemon =>
+    this.pokemonList.value().filter(pokemon =>
       pokemon.name.toLowerCase().includes(this.searchValue().trim().toLowerCase())
     )
   );
@@ -80,6 +80,4 @@ export class PokemonList implements OnInit, AfterViewInit {
     }
     return 'Grand';
   }
-
-  protected readonly Number = Number;
 }

@@ -12,9 +12,6 @@ export class PokemonService {
   readonly #POKEMON_URL = 'http://localhost:3001/pokemons';
   readonly #http:HttpClient = inject(HttpClient)
 
-  getPokemon(): Observable<Pokemon[]> {
-    return this.#http.get<Pokemon[]>(this.#POKEMON_URL);
-  }
   updatePokemon(pokemon:Pokemon): Observable<Pokemon> {
     return this.#http.put<Pokemon>(this.#POKEMON_URL + "/" + pokemon.id,pokemon);
   }
